@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
-const PORT = 8081;
 const db = require('./db.js'); 
+require('dotenv').config()
 
 const bodyParser = require('body-parser');
 
@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 // Assuming db.js is in the same directory
 
-
+const PORT=process.env.PORT
 
 
 // Router Define
