@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(passport.initialize())
 const localAuthmiddleware=passport.authenticate('local',{session:false})
 
-app.get("/",localAuthmiddleware,(req,res)=>{
+app.get("/",(req,res)=>{
     res.send("Welcome to Hotel")
 })
 const PORT=process.env.PORT
@@ -23,7 +23,7 @@ const PORT=process.env.PORT
 // Router Define
 const personroutes = require('./routes/personroutes.js')
 const menuroutes=require('./routes/menuroutes.js');
-app.use("/person",personroutes)
+app.use("/person" , localAuthmiddleware,personroutes)
 app.use("/menu",menuroutes)
 app.listen(PORT,()=>{
     console.log(`Server is running on port :http://localhost:${PORT}`);
