@@ -2,20 +2,27 @@ const express = require('express');
 const app = express();
 const db = require('./db.js'); 
 require('dotenv').config()
+const passport = require('./auth/auth.js')
+
+
 
 const bodyParser = require('body-parser');
 
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());
 
-// Assuming db.js is in the same directory
+app.use(passport.initialize())
+const localAuthmiddleware=passport.authenticate('local',{session:false})
 
+app.get("/",localAuthmiddleware,(req,res)=>{
+    res.send("Welcome to Hotel")
+})
 const PORT=process.env.PORT
 
 
 // Router Define
 const personroutes = require('./routes/personroutes.js')
-const menuroutes=require('./routes/menuroutes.js')
+const menuroutes=require('./routes/menuroutes.js');
 app.use("/person",personroutes)
 app.use("/menu",menuroutes)
 app.listen(PORT,()=>{
